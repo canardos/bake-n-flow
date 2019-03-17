@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NCS2211DR2G
+D Low Distortion Audio Power Amplifier with Differential Output and Shutdown Mode
+K audio amplifier
+F https://www.onsemi.com/pub/Collateral/NCS2211-D.PDF
+$ENDCMP
+#
+#End Doc Library

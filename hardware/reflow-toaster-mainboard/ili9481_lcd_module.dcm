@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP ili9481_tft_lcd_connector
+D FPC connector for ILI9481 TFT LCD
+K connector
+F ~
+$ENDCMP
+#
+#End Doc Library

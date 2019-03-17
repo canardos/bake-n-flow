@@ -1,0 +1,9 @@
+.pioenvs/
+.pio/
+.pioenvs
+.piolibdeps
+.settings/language.settings.xml
+piobuild/
+.cproject
+.project
+

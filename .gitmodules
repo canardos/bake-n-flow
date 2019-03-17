@@ -1,0 +1,6 @@
+[submodule "lib"]
+	path = lib
+	url = https://github.com/canardos/libpekin.git
+[submodule "src/lvgl"]
+	path = src/lvgl
+	url = https://github.com/lvgl/lvgl.git

@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP TPS22860DBV
+D Cap free NMOS 400mA Low Drop Adjustable Out Regulator, SOT-23-5
+K Cap free Adjustable LDO 400mA
+F http://www.ti.com/lit/ds/symlink/tps736.pdf
+$ENDCMP
+#
+#End Doc Library
