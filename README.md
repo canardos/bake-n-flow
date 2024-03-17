@@ -11,7 +11,7 @@ Features:
 - Manual override controls
 - Touch screen control
 
-**Full project details can be found at [duk.io](https://blog.duk.io/TODO)**
+**Full project details can be found at [duk.io](https://www.duk.io/blog/electronics-projects/)**
 
 <video width="480" height="320" autoplay loop>
   <source src="/content/images/2020/09/bakenflow_ui.mp4" type="video/mp4" />
@@ -32,10 +32,10 @@ CONFIGURATION: https://docs.platformio.org/page/boards/ststm32/genericSTM32F103V
 PLATFORM: ST STM32 (9.0.0) > STM32F103VD (64k RAM. 384k Flash)
 HARDWARE: STM32F103VDT6 72MHz, 64KB RAM, 384KB Flash
 DEBUG: Current (stlink) External (blackmagic, jlink, stlink)
-PACKAGES: 
- - framework-cmsis 2.50501.200527 (5.5.1) 
- - framework-cmsis-stm32f1 4.3.1 
- - tool-ldscripts-ststm32 0.1.0 
+PACKAGES:
+ - framework-cmsis 2.50501.200527 (5.5.1)
+ - framework-cmsis-stm32f1 4.3.1
+ - tool-ldscripts-ststm32 0.1.0
  - toolchain-gccarmnoneeabi 1.90201.191206 (9.2.1)
 LDF: Library Dependency Finder -> http://bit.ly/configure-pio-ldf
 LDF Modes: Finder ~ chain, Compatibility ~ soft
@@ -69,7 +69,7 @@ For bug reports, read
 debug_level: 1
 
 hla_swd
-target halted due to debug-request, current mode: Thread 
+target halted due to debug-request, current mode: Thread
 xPSR: 0x01000000 pc: 0x0800108c msp: 0x20010000
 ** Programming Started **
 ** Programming Finished **
@@ -113,7 +113,7 @@ All of these are available in the ST STM32 SDK available from ST Micro.
 
 The project was built with `gcc-arm-none-eabi 9.2.1` It should work with any later GCC version and possibly with other compilers. The code contains some GCC flags and some C99 VLAs.
 
-#### Target requirements 
+#### Target requirements
 
 | | |
 |-|-|
@@ -135,7 +135,7 @@ PlatformIO should automatically include/link the correct headers/sources from th
 
 **Libpekin**
 
-[Libpekin]() is a collection of MCU related code shared between this and other projects. It receives regular breaking changes so a fixed version is included in the source of this project in the `lib` folder. PlatformIO will include the `lib` subfolders automatically.
+[Libpekin](https://gihub.com/canardos/libpekin) is a collection of MCU related code shared between this and other projects. It receives regular breaking changes so a fixed version is included in the source of this project in the `lib` folder. PlatformIO will include the `lib` subfolders automatically.
 
 ## Folder structure
 
