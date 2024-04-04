@@ -1,7 +1,8 @@
 (sym_lib_table
-  (lib (name ili9481_lcd_module)(type Legacy)(uri ${KIPRJMOD}/ili9481_lcd_module.lib)(options "")(descr ""))
-  (lib (name MyMCU)(type Legacy)(uri ${KIPRJMOD}/MyMCU.lib)(options "")(descr ""))
-  (lib (name TPS22860)(type Legacy)(uri ${KIPRJMOD}/TPS22860.lib)(options "")(descr ""))
-  (lib (name NCS2211)(type Legacy)(uri ${KIPRJMOD}/NCS2211.lib)(options "")(descr ""))
-  (lib (name reflow-toaster-mainboard-rescue)(type Legacy)(uri ${KIPRJMOD}/reflow-toaster-mainboard-rescue.lib)(options "")(descr ""))
+  (version 7)
+  (lib (name "ili9481_lcd_module")(type "Legacy")(uri "${KIPRJMOD}/ili9481_lcd_module.lib")(options "")(descr ""))
+  (lib (name "MyMCU")(type "Legacy")(uri "${KIPRJMOD}/MyMCU.lib")(options "")(descr ""))
+  (lib (name "TPS22860")(type "Legacy")(uri "${KIPRJMOD}/TPS22860.lib")(options "")(descr ""))
+  (lib (name "NCS2211")(type "Legacy")(uri "${KIPRJMOD}/NCS2211.lib")(options "")(descr ""))
+  (lib (name "reflow-toaster-mainboard-rescue")(type "KiCad")(uri "${KIPRJMOD}/reflow-toaster-mainboard-rescue.kicad_sym")(options "")(descr ""))
 )
