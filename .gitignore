@@ -20,6 +20,7 @@ travis.yml
 *.xml
 *.kicad_prl
 *.bck
+*.lck
 *-bak
 *-backups
 *-cache

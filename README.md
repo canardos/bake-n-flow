@@ -1,8 +1,11 @@
 # Bake-n-Flow
 
-![Reflow toaster oven](bake-n-flow.jpg)
+![Reflow toaster oven controller](pcb-and-enclosure.jpg)
 
 ## Yet another (STM32F1-based) toaster reflow oven controller - PCB design and firmware
+
+> [!Warning]
+> This is personal project. It was built and works without issue for my purposes. It is made public here in case some part of it is useful to others, but **neither the hardware nor firmware have been rigorously tested**.
 
 **Features:**
 
@@ -11,13 +14,15 @@
 - Manual override controls
 - Touch screen control
 
+**This repo contains the firmware and PCB design.**
+
 **See [custom electronics projects at duk.io](https://www.duk.io/blog/electronics-projects/) for full project details.**
 
 https://github.com/canardos/bake-n-flow/assets/14832310/401d4c1e-f360-4829-90d8-4b5ea61bf341
 
 ## Build
 
-The project uses the [PlatformIO](https://platformio.org/) dependency management/build system. If you have PlatformIO installed, executing the `run` command in the root folder should be all that is required for a successful build. The `platformio.ini` file contains the required configuration and PlatformIO will download the required platform dependencies and toolchain.
+The project uses the [PlatformIO](https://platformio.org/) dependency management/build system. If you have PlatformIO installed, executing the `run` command in the root folder *should* 🙏 be all that is required for a successful build. The `platformio.ini` file contains the required configuration and PlatformIO will download the required platform dependencies and toolchain.
 
 **1. Clone repo and download submodules**
 
@@ -27,7 +32,7 @@ The project uses the [PlatformIO](https://platformio.org/) dependency management
 > git submodule update --init
 ```
 
-**2. Build firmware (PlatformIO must be instealled)**
+**2. Build firmware (PlatformIO must be installed)**
 
 ```shell
 > pio run
@@ -145,7 +150,13 @@ PlatformIO should automatically include/link the correct headers/sources from th
 
 **Libpekin**
 
-[Libpekin](https://gihub.com/canardos/libpekin) is a collection of MCU related code shared between this and other projects. It is included as a Git submodule in the `lib` folder. PlatformIO will include the `lib` subfolders automatically.
+[Libpekin](https://github.com/canardos/libpekin) is a collection of shared MCU-related code resulting from this and other projects. It's included as a Git submodule in the `lib` folder. PlatformIO will include the `lib` subfolders automatically.
+
+## Hardware - PCB
+
+The PCB was designed with KiCad v.5, but the files have been upgraded to v.7 and are located in `/hardware/pcb`. Gerber output for the first and only revision is located in `/hardware/pcb/plots`.
+
+See the [KiCad documentation](https://docs.kicad.org/) for information on installing and using KiCad.
 
 ## Folder structure
 
