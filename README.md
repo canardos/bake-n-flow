@@ -1,28 +1,38 @@
-# BakeNFlow
+# Bake-n-Flow
 
 ![Reflow toaster oven](bake-n-flow.jpg)
 
-**Yet another (STM32F1-based) toaster reflow oven controller - PCB design and firmware**
+## Yet another (STM32F1-based) toaster reflow oven controller - PCB design and firmware
 
-Features:
+**Features:**
 
 - Customizable profiles
 - Reflow / baking operations
 - Manual override controls
 - Touch screen control
 
-**Full project details can be found at [duk.io](https://www.duk.io/blog/electronics-projects/)**
+**See [custom electronics projects at duk.io](https://www.duk.io/blog/electronics-projects/) for full project details.**
 
 <video width="480" height="320" autoplay loop>
-  <source src="/content/images/2020/09/bakenflow_ui.mp4" type="video/mp4" />
+  <source src="https://blog.duk.io/content/images/2020/09/bakenflow_ui.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
 
 ## Build
 
-The project uses the [PlatformIO](https://platformio.org/) dependency management/build system. If you have PlatformIO installed, executing the `run` command in the root folder should be all that is required for a successful build. The `platformio.ini` file contains the required configuration  and PlatformIO will download the required platform dependencies and toolchain.
+The project uses the [PlatformIO](https://platformio.org/) dependency management/build system. If you have PlatformIO installed, executing the `run` command in the root folder should be all that is required for a successful build. The `platformio.ini` file contains the required configuration and PlatformIO will download the required platform dependencies and toolchain.
 
+**1. Clone repo and download submodules**
+
+```shell
+> git clone https://github.com/canardos/bake-n-flow.git
+> cd bake-n-flow
+> git submodule update --init
 ```
+
+**2. Build firmware (PlatformIO must be instealled)**
+
+```shell
 > pio run
 
 Processing release (platform: ststm32; board: genericSTM32F103VD; framework: cmsis)
@@ -53,9 +63,11 @@ Flash: [=====     ]  50.5% (used 198664 bytes from 393216 bytes)
 ============================= [SUCCESS] Took 1.22 seconds =============================
 ```
 
+**3. Upload to device**
+
 Similarly, use `pio run --target upload` to upload the firmware to the device. You'll likely need to update the upload settings in `platformio.ini` to reflect your settings, or use your own upload tool.
 
-```
+```shell
 > pio run --target upload
 
 Configuring upload protocol...
@@ -78,18 +90,19 @@ xPSR: 0x01000000 pc: 0x0800108c msp: 0x20010000
 ** Resetting Target **
 shutdown command invoked
 ======================== [SUCCESS] Took 12.58 seconds =================================
-
 ```
 
-If you want to view/edit the project in your favorite IDE, use PlatformIO to generate the appropriate setup/workspace files and import the project:
+**4. [optional] Create project files for IDE**
 
-```
+If you want to view/edit the project in your favorite IDE, use PlatformIO to generate the appropriate setup/workspace files and then import the project in the IDE:
+
+```shell
 > pio project init --ide [atom|clion|codeblocks|eclipse|emacs|netbeans|qtcreator|sublimetext|vim|visualstudio|vscode]
 ```
 
-See the PlatformIO documentation for further details.
+See the [PlatformIO documentation](https://docs.platformio.org) for further details.
 
-#### Using an alternate build system
+### Using an alternate build system
 
 **Platform dependencies**
 
@@ -103,17 +116,17 @@ If you wish to use a different build system, you will need:
 | Startup source file | ASM file containing the startup code and vector table |
 | Linker script | Tells the linker how to setup everything in flash/SRAM |
 
-All of these are available in the ST STM32 SDK available from ST Micro.
+All of these are available in the [STM32 SDK](https://www.st.com/en/development-tools/stm32-software-development-tools.html) available from ST Micro.
 
 **Compiling / linking**
 
-`platformio.ini` lists the required compiler flags. Be sure to use `--specs=nano.specs` and `--specs=nosys.specs` when linking.
+`platformio.ini` lists the required compiler flags. Be sure to use `--specs=nano.specs` and `--specs=nosys.specs` when linking using your own tools, as the standard lib is be too large and is not used.
 
-#### Compiler
+### Compiler
 
-The project was built with `gcc-arm-none-eabi 9.2.1` It should work with any later GCC version and possibly with other compilers. The code contains some GCC flags and some C99 VLAs.
+The project was compiled and tested with `gcc-arm-none-eabi 9.2.1` It should work with any later GCC version and possibly with other compilers. The code contains some GCC flags and some C99 VLAs.
 
-#### Target requirements
+### Target requirements
 
 | | |
 |-|-|
@@ -131,11 +144,11 @@ PlatformIO should automatically include/link the correct headers/sources from th
 
 **LVGL**
 
-[LVGL](https://github.com/lvgl/lvgl) v5.3 (git commit `9f216a55be65ec05c477ac55f73a6efad50f7680`) is used. The source is included in this repo at `src/lvgl`
+[LVGL](https://github.com/lvgl/lvgl) v5.3 (git commit `9f216a55be65ec05c477ac55f73a6efad50f7680`) is used. It is included as a Git submodule in the`src/lvgl` folder.
 
 **Libpekin**
 
-[Libpekin](https://gihub.com/canardos/libpekin) is a collection of MCU related code shared between this and other projects. It receives regular breaking changes so a fixed version is included in the source of this project in the `lib` folder. PlatformIO will include the `lib` subfolders automatically.
+[Libpekin](https://gihub.com/canardos/libpekin) is a collection of MCU related code shared between this and other projects. It is included as a Git submodule in the `lib` folder. PlatformIO will include the `lib` subfolders automatically.
 
 ## Folder structure
 
@@ -162,6 +175,7 @@ BakeNFlow
 |
 |--test              | No tests in use
 ```
+
 ## License
 
-MIT
+This software is available under the [MIT license](https://opensource.org/license/MIT).
