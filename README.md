@@ -13,10 +13,7 @@
 
 **See [custom electronics projects at duk.io](https://www.duk.io/blog/electronics-projects/) for full project details.**
 
-<video width="480" height="320" autoplay loop>
-  <source src="https://blog.duk.io/content/images/2020/09/bakenflow_ui.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
+https://github.com/canardos/bake-n-flow/assets/14832310/401d4c1e-f360-4829-90d8-4b5ea61bf341
 
 ## Build
 
