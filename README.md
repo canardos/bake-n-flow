@@ -38,32 +38,41 @@ The project uses the [PlatformIO](https://platformio.org/) dependency management
 > pio run
 
 Processing release (platform: ststm32; board: genericSTM32F103VD; framework: cmsis)
-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
 Verbose mode can be enabled via `-v, --verbose` option
 CONFIGURATION: https://docs.platformio.org/page/boards/ststm32/genericSTM32F103VD.html
-PLATFORM: ST STM32 (9.0.0) > STM32F103VD (64k RAM. 384k Flash)
+PLATFORM: ST STM32 (19.7.0) > STM32F103VD (64k RAM. 384k Flash)
 HARDWARE: STM32F103VDT6 72MHz, 64KB RAM, 384KB Flash
-DEBUG: Current (stlink) External (blackmagic, jlink, stlink)
-PACKAGES:
- - framework-cmsis 2.50501.200527 (5.5.1)
- - framework-cmsis-stm32f1 4.3.1
- - tool-ldscripts-ststm32 0.1.0
- - toolchain-gccarmnoneeabi 1.90201.191206 (9.2.1)
-LDF: Library Dependency Finder -> http://bit.ly/configure-pio-ldf
+DEBUG: Current (stlink) External (blackmagic, cmsis-dap, jlink, stlink)
+PACKAGES: 
+ - framework-cmsis @ 2.50501.200527 (5.5.1) 
+ - framework-cmsis-stm32f1 @ 4.3.5 
+ - tool-ldscripts-ststm32 @ 0.2.0 
+ - toolchain-gccarmnoneeabi @ 1.120301.0 (12.3.1)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
 LDF Modes: Finder ~ chain, Compatibility ~ soft
 Found 4 compatible libraries
 Scanning dependencies...
 Dependency Graph
-|-- <libpekin>
-|-- <libpekin_stm32>
-|   |-- <libpekin>
+|-- libpekin @ 0.2.1
+|-- libpekin_stm32
 Building in release mode
+Compiling piobuild/build/release/FrameworkCMSIS/gcc/startup_stm32f103xe.o
+...
+...
+...
+Archiving piobuild/build/release/lib7bf/libpekin_stm32.a
+Indexing piobuild/build/release/lib7bf/libpekin_stm32.a
+Archiving piobuild/build/release/lib72d/libpekin.a
+Indexing piobuild/build/release/lib72d/libpekin.a
+Linking piobuild/build/release/firmware.elf
 Checking size piobuild/build/release/firmware.elf
 Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
-RAM:   [========= ]  94.6% (used 62004 bytes from 65536 bytes)
-Flash: [=====     ]  50.5% (used 198664 bytes from 393216 bytes)
-============================= [SUCCESS] Took 1.22 seconds =============================
+RAM:   [========= ]  95.0% (used 62248 bytes from 65536 bytes)
+Flash: [=====     ]  50.5% (used 198660 bytes from 393216 bytes)
+============================= [SUCCESS]
 ```
+
 
 **3. Upload to device**
 
@@ -126,14 +135,14 @@ All of these are available in the [STM32 SDK](https://www.st.com/en/development-
 
 ### Compiler
 
-The project was compiled and tested with `gcc-arm-none-eabi 9.2.1` It should work with any later GCC version and possibly with other compilers. The code contains some GCC flags and some C99 VLAs.
+The project was compiled and tested with ~~`gcc-arm-none-eabi 9.2.1`~~ `gcc-arm-none-eabi 12.3.1`. It should work with any later GCC version and possibly with other compilers. The code contains some GCC flags and some C99 VLAs.
 
 ### Target requirements
 
 | | |
 |-|-|
 |MCU  | STM32F103 with FSMC |
-|Flash| >197kb              |
+|Flash| >195kb              |
 |SRAM | >61kb               |
 
 It may be possible to get by with less SRAM by using a smaller drawing buffer (currently 40 lines - 38.4 kb)
@@ -146,7 +155,7 @@ PlatformIO should automatically include/link the correct headers/sources from th
 
 **LVGL**
 
-[LVGL](https://github.com/lvgl/lvgl) v5.3 (git commit `9f216a55be65ec05c477ac55f73a6efad50f7680`) is used. It is included as a Git submodule in the`src/lvgl` folder.
+[LVGL](https://github.com/lvgl/lvgl) v5.3 (git commit `9f216a55be65ec05c477ac55f73a6efad50f7680`) is used. It is included ~~as a Git submodule~~ in the`src/lvgl` folder.
 
 **Libpekin**
 

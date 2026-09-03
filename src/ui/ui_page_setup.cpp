@@ -5,7 +5,7 @@
 #include "devices/speaker.h"
 #include "ui/ui_modal.h"
 #include "ui/lvgl_tools.h"
-#include "pid/pid_algo.h"
+#include "pid/lp_pid_algo.h"
 
 static lv_obj_t* cb_mute_;
 static lv_obj_t* bright_slider_;
@@ -15,7 +15,7 @@ static lv_obj_t* pid_p_;
 static lv_obj_t* pid_i_;
 static lv_obj_t* pid_d_;
 
-static Libp::PidAlgo* pid_;
+static libp::PidAlgo* pid_;
 
 static bool dirty_ = false;
 static TempUnit undo_units_;
@@ -69,7 +69,7 @@ void pageSetupCancel()
             nullptr);
 }
 
-void pageSetupInit(Libp::PidAlgo* pid)
+void pageSetupInit(libp::PidAlgo* pid)
 {
     pid_ = pid;
     lv_obj_t* page = createPage(Pages::setup);

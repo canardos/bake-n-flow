@@ -105,10 +105,10 @@ void pageBakeInit(OvenOperation* oven_operation)
     lv_obj_set_event_cb(btn_start, [] (struct _lv_obj_t * obj, lv_event_t event)
     {
         if (event == LV_EVENT_CLICKED) {
-            static constexpr uint8_t max_len = sizeof("bake for 999 minutes at 999°C?");
+            static constexpr uint8_t max_len = sizeof("bake for 65535 minutes at 65535°C?");
             char buf[max_len];
-            snprintf(buf, max_len, "Bake for %d minutes at %d°%c?", getTimeInput(), getTempInput(),
-                    settings_.units == TempUnit::celsius ? 'C' : 'F');
+            snprintf(buf, max_len, "Bake for %" PRIu16 " minutes at %" PRIu16 "°%c?", getTimeInput(), getTempInput(),
+                    (settings_.units == TempUnit::celsius ? 'C' : 'F'));
             createModalMbox(buf, ModalMboxType::yes_no, []()
             {
                 bool started = oven_operation_->startBake(

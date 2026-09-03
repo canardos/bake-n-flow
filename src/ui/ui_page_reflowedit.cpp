@@ -3,7 +3,7 @@
 #include "lvgl/lvgl.h"
 #include "ui/ui_common.h"
 #include "app_settings.h"
-#include "string_util.h"
+#include "lp_string.h"
 
 /// The reflow edit page container
 static lv_obj_t* page_ = nullptr;
@@ -36,7 +36,7 @@ enum class DataDir : uint8_t { load, save };
 static void readWriteFields(ReflowProfiles::Profile& prof, DataDir direction)
 {
     if (page_ == nullptr)
-        getErrHndlr().halt(Libp::ErrCode::illegal_state);
+        getErrHndlr().halt(libp::ErrCode::illegal_state);
 
     if (direction == DataDir::load) {
         intEditFieldSetValue(edit_ctrls_[FieldId::preheat_time], prof.preheat.duration);
@@ -68,7 +68,7 @@ static void readWriteFields(ReflowProfiles::Profile& prof, DataDir direction)
         prof.soak.final_temp        = intEditFieldGetValue(edit_ctrls_[FieldId::soak_temp]);
         prof.reflow_ramp.final_temp = intEditFieldGetValue(edit_ctrls_[FieldId::reflow_ramp_temp]);
         prof.units = getSettings().units;
-        Libp::strcpy_safe(prof.name, lv_label_get_text(profile_name_label_), ReflowProfiles::max_name_len + 1);
+        libp::strcpy_safe(prof.name, lv_label_get_text(profile_name_label_), ReflowProfiles::max_name_len + 1);
     }
 }
 
@@ -101,7 +101,7 @@ static void pageRefloweditSave()
 void pageRefloweditInit()
 {
     if (page_ != NULL)
-        getErrHndlr().halt(Libp::ErrCode::illegal_state);
+        getErrHndlr().halt(libp::ErrCode::illegal_state);
 
     page_ = createPage(Pages::reflow_edit_profile);
 

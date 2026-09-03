@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "audio/dac_audio.h"
+#include "audio/lp_dac_audio.h"
 
 inline constexpr unsigned char audio_alert[] = {
   0x7f, 0x70, 0x6f, 0x60,
@@ -704,8 +704,8 @@ inline constexpr unsigned char audio_alert[] = {
 };
 inline constexpr unsigned int audio_alert_len = 8164;
 
-const Libp::AudioSample audiosample_alert = {
-        Libp::AudioResolution::bits8,
+const libp::AudioSample audiosample_alert = {
+        libp::AudioResolution::bits8,
         44100,
         audio_alert,
         audio_alert_len

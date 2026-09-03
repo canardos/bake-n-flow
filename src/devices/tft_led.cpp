@@ -1,12 +1,13 @@
 #include <cstdint>
 #include <tuple>
 #include "tft_led.h"
-#include "clock_stm32f1xx.h"
-#include "timer_stm32f1xx.h"
-#include "pins_stm32f1xx.h"
 #include "devices/peripherals.h"
 
-using namespace LibpStm32;
+#include "lp_clock_stm32f1xx.h"
+#include "lp_pins_stm32f1xx.h"
+#include "lp_timer_stm32f1xx.h"
+
+using namespace libp_stm32;
 
 static constexpr uint32_t mcu_freq = 72'000'000;
 static constexpr uint32_t led_freq = 50'000; // high enough to avoid audio hum on amp
@@ -16,18 +17,18 @@ static constexpr uint32_t range = led_resolution * 2 - max_brightness + min_brig
 static constexpr uint32_t cycles_per_period = mcu_freq / led_freq;
 static constexpr uint32_t cycles_per_step = cycles_per_period / range;
 
-static constexpr Tim::Channel tim_channel = Tim::Channel::ch4;
-static Tim::BasicTimer<TIM3_BASE> timer_;
+static constexpr tmr::Channel tim_channel = tmr::Channel::ch4;
+static tmr::BasicTimer<TIM3_BASE> timer_;
 
 void initTftLed(uint8_t brightness)
 {
-    Clk::enable<Clk::Apb2::iopb>();
+    clk::enable<clk::Apb2::iopb>();
     GpioB::setOutputs<
             OutputMode::alt_pushpull,
             OutputSpeed::low,
             PinNb::tft_led_pwm>();
 
-    Clk::enable<Clk::Apb1::tim3>();
+    clk::enable<clk::Apb1::tim3>();
 
     timer_.initPwm(
             tim_channel,

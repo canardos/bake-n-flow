@@ -11,18 +11,18 @@
 #include "lvgl_driver/lvgl_driver.h"
 #include "lvgl/lvgl.h"
 #include "libpekin.h"
-#include "touch/touch_calibrate.h"
-#include <graphics/idrawing_surface.h>
+#include "touch/lp_touch_calibrate.h"
+#include <graphics/lp_idrawing_surface.h>
 
 
-using namespace Libp;
+using namespace libp;
 
 /// Calibrate touch interactively and save calibration to flash.
 template <typename T>
-static void calibrateTouchscreen(ResistiveTouch::Screen& touch_screen, IDrawingSurface<T>& display)
+static void calibrateTouchscreen(resist_touch::Screen& touch_screen, IDrawingSurface<T>& display)
 {
     AppSettings app_settings = AppSettings::get();
-    if (!ResistiveTouch::calibrateTouch(display, touch_screen)) {
+    if (!resist_touch::calibrateTouch(display, touch_screen)) {
         getErrHndlr().halt(ErrCode::general, "Touch calibration failed");
     }
     app_settings.settings().touch_calib_mtx = touch_screen.getCalibration();
@@ -31,12 +31,12 @@ static void calibrateTouchscreen(ResistiveTouch::Screen& touch_screen, IDrawingS
 
 static void initClk()
 {
-    using namespace LibpStm32;
+    using namespace libp_stm32;
     // 72 MHz
-    Clk::setSysClk(Clk::SysClkSrc::ext_high_speed_osc, 2, Clk::PllSrc::hse, 2);
-    Clk::setSysClk(Clk::SysClkSrc::pll, 2, Clk::PllSrc::hse, 9);
-    Clk::setHClk(Clk::AhbPrescaler::div1);
-    Clk::setPeripheralClk(Clk::ApbPrescaler::div2, Clk::ApbPrescaler::div1, Clk::AdcPrescaler::div6);
+    clk::setSysClk(clk::SysClkSrc::ext_high_speed_osc, 2, clk::PllSrc::hse, 2);
+    clk::setSysClk(clk::SysClkSrc::pll, 2, clk::PllSrc::hse, 9);
+    clk::setHClk(clk::AhbPrescaler::div1);
+    clk::setPeripheralClk(clk::ApbPrescaler::div2, clk::ApbPrescaler::div1, clk::AdcPrescaler::div6);
 }
 
 static void initDevices()
@@ -54,11 +54,11 @@ void runMainProgLoop();
 int main()
 {
     initClk();
-    libpekinInitTimers();
+    lpInitTimers();
     initDevices();
 
-    Libp::IDrawingSurface<uint16_t>& tft_display = initTftDisplay();
-    ResistiveTouch::Screen& touch_screen = initTouchscreen();
+    libp::IDrawingSurface<uint16_t>& tft_display = initTftDisplay();
+    resist_touch::Screen& touch_screen = initTouchscreen();
 
     // If screen held down on startup, set
     // brightness high and run touch calibration.

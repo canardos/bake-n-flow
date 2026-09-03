@@ -2,11 +2,12 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cinttypes>
-#include "string_util.h"
+#include "lp_string.h"
+#include "lp_types.h"
 #include "ui/ui_modal.h"
 #include "lvgl/lvgl.h"
 
-using namespace Libp;
+using namespace libp;
 
 // These are modal dialogs so we can store these pointers statically
 // Nested dialogs will still function correctly
@@ -96,7 +97,7 @@ void getModalInputOneLine(
     lv_obj_t* kb = keyboardCreate(mask == KbInputMask::string ? LV_KB_MODE_TEXT : LV_KB_MODE_NUM);
     output_text_area = kbTextareaCreate();
 
-    uint8_t idx = enumBaseT(mask);
+    uint8_t idx = enumVal(mask);
     if ( input_masks_[idx][0] != '\0' )
         lv_ta_set_accepted_chars(output_text_area, input_masks_[idx]);
 

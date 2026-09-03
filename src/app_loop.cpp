@@ -1,17 +1,17 @@
-#include <cstdint>
-#include <pid/pid_algo.h>
+#include "pid/lp_pid_algo.h"
 #include "oven/oven_hardware.h"
 #include "oven/oven_operation.h"
 #include "ui/ui.h"
 #include "libpekin.h"
+#include <cstdint>
 
 static OvenHardware oven_;
 
-static uint64_t getMillis() { return Libp::getMillis(); }
+static uint64_t getMillis() { return libp::getMillis(); }
 
 // 40 10 5
 
-static Libp::PidAlgo pid_algo_(
+static libp::PidAlgo pid_algo_(
         40, 10, 5,
         0, 100,
         // getMillis overflow is okay as oven won't be on for months.
@@ -53,7 +53,7 @@ static void updateUi()
 static void outputDebugInfo()
 {
     static uint32_t last = 0;
-    uint32_t now = Libp::getMillis();
+    uint32_t now = libp::getMillis();
     if ((now - last) > 1000) {
         lv_mem_monitor_t mon;
         lv_mem_monitor(&mon);
@@ -80,11 +80,11 @@ void runMainProgLoop()
             settings.pid_params.ki,
             settings.pid_params.kd);
     buildUi(&oven_operation_, &pid_algo_);
-    uint32_t timestamp_ms = Libp::getMillis();
+    uint32_t timestamp_ms = libp::getMillis();
 
     while (true) {
         lv_task_handler();
-        uint32_t now = Libp::getMillis();
+        uint32_t now = libp::getMillis();
         lv_tick_inc(now - timestamp_ms);
         timestamp_ms = now;
         processOvenEvents();
@@ -92,6 +92,6 @@ void runMainProgLoop()
 #if PRINT_DEBUG_INFO
         outputDebugInfo();
 #endif
-        Libp::delayMs(5);
+        libp::delayMs(5);
     }
 }

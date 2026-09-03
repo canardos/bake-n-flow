@@ -13,9 +13,9 @@ static uint16_t bake_time_mins_ = 0;
 /// bake_temp in pref units
 static void updateTitleText(uint16_t bake_time_s, uint16_t bake_temp)
 {
-    static constexpr uint8_t max_len = sizeof("baking for 999 minutes at 999°C");
+    static constexpr uint8_t max_len = sizeof("baking for 65535 minutes at 65535°C");
     char buf[max_len];
-    snprintf(buf, max_len, "Baking for %d minutes at %d°%c", bake_time_mins_, bake_temp, true ? 'C' : 'F');
+    snprintf(buf, max_len, "Baking for %" PRIu16 " minutes at %" PRIu16 "°%c", bake_time_mins_, bake_temp, true ? 'C' : 'F');
     lv_label_set_text(title_label_, buf);
 }
 

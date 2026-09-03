@@ -4,7 +4,7 @@
 #include "main.h"
 #include "lvgl/lvgl.h"
 #include <lvgl_driver/lvgl_tft_driver.h>
-#include <graphics/idrawing_surface.h>
+#include <graphics/lp_idrawing_surface.h>
 #include <lvgl_driver/lvgl_touch_driver.h>
 
 static constexpr uint16_t buffer_size = App::ui_width * 40;
@@ -19,7 +19,7 @@ static lv_color_t rows_buf[buffer_size];
  * @param tft_driver
  */
 inline
-void initLvglHalDrivers(Libp::ResistiveTouch::Screen* touch_screen, Libp::IDrawingSurface<uint16_t>* display)
+void initLvglHalDrivers(libp::resist_touch::Screen* touch_screen, libp::IDrawingSurface<uint16_t>* display)
 {
     lv_disp_buf_init(&disp_buf, rows_buf, NULL, buffer_size);
 

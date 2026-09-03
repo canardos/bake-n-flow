@@ -1,4 +1,4 @@
-#include <misc_math.h>
+#include <lp_misc_math.h>
 #include <oven/oven_operation.h>
 
 bool OvenOperation::startReflow(ReflowProfiles::Profile& profile, OperationCompleteCb reflow_complete_cb)
@@ -38,7 +38,7 @@ bool OvenOperation::startBake(uint16_t time_s, uint16_t temp, OperationCompleteC
 
     oven_.setDoorOpening(false);
     oven_.setPowerLevel(bake_start_power);
-    pid_algo_.init(oven_.getTemp(), pid_sampling_period_ms / 1000, Libp::PidAlgo::Mode::normal);
+    pid_algo_.init(oven_.getTemp(), pid_sampling_period_ms / 1000, libp::PidAlgo::Mode::normal);
 
     return true;
 }
@@ -71,7 +71,7 @@ bool OvenOperation::startManualTemp(uint16_t temp)
     state_ = State::manual_temp;
 
     oven_.setPowerLevel(bake_start_power);
-    pid_algo_.init(oven_.getTemp(), pid_sampling_period_ms / 1000, Libp::PidAlgo::Mode::normal);
+    pid_algo_.init(oven_.getTemp(), pid_sampling_period_ms / 1000, libp::PidAlgo::Mode::normal);
 
     return true;
 }
@@ -163,7 +163,7 @@ bool OvenOperation::process()
             // Wait until we hit profile start temperature
             return true;
         start_time_ms_ = get_millis_func_();
-        pid_algo_.init(oven_temp, pid_sampling_period_ms / 1000, Libp::PidAlgo::Mode::gradient);
+        pid_algo_.init(oven_temp, pid_sampling_period_ms / 1000, libp::PidAlgo::Mode::gradient);
         state_ = State::reflow_tracking;
         break;
     case State::reflow_tracking:

@@ -55,7 +55,7 @@ static void setState(ManualState state)
             manual_state_ = ManualState::fixed_temp;
         }
         oven_operation_->startManualTemp(val * 10);
-        snprintf(label_text, label_max_len, "%d°C", (int)val);
+        snprintf(label_text, label_max_len, "%" PRIu16 "°C", val);
         // TODO: we should just set once and trigger refresh
         lv_label_set_static_text(lbl_level, label_text);
         lv_obj_align(lbl_level, value_cont, LV_ALIGN_CENTER, 0, 0);

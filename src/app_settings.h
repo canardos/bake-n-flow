@@ -1,12 +1,14 @@
 #ifndef APP_SETTINGS_H_
 #define APP_SETTINGS_H_
 
+#include "flash/lp_eeprom_stm32f1xx.h"
+#include "reflow/reflow_profiles.h"
+#include "touch/lp_resistive_touch.h"
+#include "lp_misc_math.h"
+
 #include <cstdint>
 #include <cstring>
-#include <flash/eeprom_stm32f1xx.h>
-#include "reflow/reflow_profiles.h"
-#include "touch/resistive_touch.h"
-#include "misc_math.h"
+#include <type_traits>
 
 /**
  * Persistent application settings container.
@@ -18,14 +20,20 @@ public:
         uint16_t ki;
         uint16_t kd;
     };
+
     struct Data {
         TempUnit units;
         /// 1->100
         uint8_t brightness;
         bool mute;
-        Libp::ResistiveTouch::CalibrationMatrix touch_calib_mtx;
+        libp::resist_touch::CalibrationMatrix touch_calib_mtx;
         ReflowProfiles::Profile profiles[ReflowProfiles::max_profiles_];
         PidParams pid_params;
+
+        static_assert(std::is_trivially_copyable_v<ReflowProfiles::Profile>, "needed for memcpy");
+        static_assert(std::is_standard_layout_v<ReflowProfiles::Profile>, "needed for memcpy");
+        static_assert(std::is_trivially_copyable_v<libp::resist_touch::CalibrationMatrix>, "needed for memcpy");
+        static_assert(std::is_standard_layout_v<libp::resist_touch::CalibrationMatrix>, "needed for memcpy");
 
         /**
          * Convert temperature to the currently configured units.
@@ -34,7 +42,7 @@ public:
          * @param src_unit
          * @return temperature in tenths of a degree
          */
-        int16_t unitsToCurrentUnits(int16_t temp, TempUnit src_unit)
+        int16_t unitsToCurrentUnits(int16_t temp, TempUnit src_unit) const
         {
             return convertUnits(temp, src_unit, units);
         }
@@ -52,8 +60,8 @@ public:
             if (src_unit == dst_unit)
                 return temp;
             return src_unit == TempUnit::celsius
-                    ? Libp::celcius_to_fahrenheit(temp)
-                    : Libp::fahrenheit_to_celcius(temp);
+                    ? libp::celcius_to_fahrenheit(temp)
+                    : libp::fahrenheit_to_celcius(temp);
         }
     };
 
@@ -99,7 +107,7 @@ public:
 
 private:
     static constexpr uint32_t flash_page_size = FLASH_PAGE_SIZE;
-#ifndef STM32F103xE
+#ifndef STM32F103xD
     static_assert(false, "Update flash_size below if MCU changed")
 #endif
     static constexpr uint32_t flash_size = 384*1024;
@@ -107,7 +115,7 @@ private:
     static constexpr uint32_t eeprom_base_addr = flash_end_addr - (flash_page_size * 2) + 1;
     static constexpr uint16_t magic_signature = 0x1245;
 
-    LibpStm32::Eeprom<Data, eeprom_base_addr, magic_signature> eeprom;
+    libp_stm32::Eeprom<Data, eeprom_base_addr, magic_signature> eeprom;
     Data data_ = []() {
 
         // -- App defaults --

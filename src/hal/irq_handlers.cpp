@@ -3,25 +3,25 @@
 extern "C"
 void HardFault_Handler(void)
 {
-    getErrHndlr().halt(Libp::ErrCode::hard_fault);
+    getErrHndlr().halt(libp::ErrCode::hard_fault);
 }
 
 extern "C"
 void MemManage_Handler(void)
 {
-    getErrHndlr().halt(Libp::ErrCode::mem_manage);
+    getErrHndlr().halt(libp::ErrCode::mem_manage);
 }
 
 extern "C"
 void BusFault_Handler(void)
 {
-    getErrHndlr().halt(Libp::ErrCode::bus_fault);
+    getErrHndlr().halt(libp::ErrCode::bus_fault);
 }
 
 extern "C"
 void UsageFault_Handler(void)
 {
-    getErrHndlr().halt(Libp::ErrCode::usage_fault);
+    getErrHndlr().halt(libp::ErrCode::usage_fault);
 }
 
 
@@ -50,6 +50,6 @@ void PendSV_Handler(void)
 /*extern "C"
 void Default_Handler(void)
 {
-    getErrHndlr().halt(Libp::ErrCode::unhandled_exception, "unhandled exception");
+    getErrHndlr().halt(libp::ErrCode::unhandled_exception, "unhandled exception");
 }
 */

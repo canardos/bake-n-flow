@@ -5,8 +5,8 @@
 #ifndef UI_PAGES_H_
 #define UI_PAGES_H_
 
-#include <pid/pid_algo.h>
 #include <cstdint>
+#include <pid/lp_pid_algo.h>
 #include "oven/oven_operation.h"
 //#include "pid/pid_ctrl.h"
 #include "lvgl/lvgl.h"
@@ -45,8 +45,7 @@ void pageMainmenuInit();
 
 void pageAboutInit();
 
-//void pageSetupInit(PidCtrl<float>* pid);
-void pageSetupInit(Libp::PidAlgo* pid);
+void pageSetupInit(libp::PidAlgo* pid);
 
 void pageBakeInit(OvenOperation* oven_operation);
 

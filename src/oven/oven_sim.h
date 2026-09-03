@@ -66,8 +66,8 @@ static void updateMockTemp(uint8_t power_lvl, uint16_t elapsed_ms)
 static float getMockTemp(uint8_t power_lvl)
 {
     if (last_instant == 0)
-        last_instant = Libp::getMillis();
-    uint64_t now = Libp::getMillis();
+        last_instant = libp::getMillis();
+    uint64_t now = libp::getMillis();
     uint16_t elapsed_ms = now - last_instant;
     if (elapsed_ms >= 1000) {
         updateMockTemp(power_lvl, elapsed_ms);

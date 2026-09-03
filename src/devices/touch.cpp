@@ -1,16 +1,17 @@
 #include "main.h"
-#include "touch/resistive_touch.h"
-#include "touch/stm32_resistive_ts.h"
-#include "clock_stm32f1xx.h"
+
+#include "lp_clock_stm32f1xx.h"
+#include "touch/lp_resistive_ts_stm32f1xx.h"
+#include "touch/lp_resistive_touch.h"
 
 namespace {
-    LibpStm32::ResistiveTs stm32_ts;
-    Libp::ResistiveTouch::Screen touch_screen(stm32_ts, App::ui_width, App::ui_height);
+    libp_stm32::ResistiveTs stm32_ts;
+    libp::resist_touch::Screen touch_screen(stm32_ts, App::ui_width, App::ui_height);
 }
 
-Libp::ResistiveTouch::Screen& initTouchscreen()
+libp::resist_touch::Screen& initTouchscreen()
 {
-    LibpStm32::Clk::enable<LibpStm32::Clk::Apb2::adc1>();
+    libp_stm32::clk::enable<libp_stm32::clk::Apb2::adc1>();
     stm32_ts.start(false);
     return touch_screen;
 }

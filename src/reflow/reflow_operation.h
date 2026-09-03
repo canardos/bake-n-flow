@@ -2,7 +2,7 @@
 #define SRC_OVEN_REFLOW_OPERATION_H_
 
 #include <cstdint>
-#include "misc_math.h"
+#include "lp_misc_math.h"
 #include "reflow/reflow_profiles.h"
 
 /**
@@ -64,7 +64,7 @@ private:
 
         for (uint8_t i = 1; i < ReflowProfiles::Profile::num_profile_points; i++) {
             if (profile_temps_[i].time_s >= time_s) {
-                return Libp::linearInterp(
+                return libp::linearInterp(
                         profile_temps_[i - 1].time_s,
                         profile_temps_[i - 1].temp,
                         profile_temps_[i].time_s,

@@ -1,9 +1,9 @@
 #ifndef REFLOW_REFLOW_OPERATION_H_
 #define REFLOW_REFLOW_OPERATION_H_
 
-#include <oven/oven_hardware.h>
-#include <pid/pid_algo.h>
 #include <cstdint>
+#include <oven/oven_hardware.h>
+#include <pid/lp_pid_algo.h>
 #include "reflow/reflow_profiles.h"
 #include "reflow/reflow_operation.h"
 #include "libpekin.h"
@@ -33,7 +33,7 @@ public:
     inline static constexpr uint16_t max_bake_duration_s = 60 * 60 * 10;
     inline static constexpr uint16_t max_reflow_duration_s = 60 * 12;
 
-    OvenOperation(OvenHardware& oven, Libp::PidAlgo& pid_algo, GetMillisFunc get_millis_func)
+    OvenOperation(OvenHardware& oven, libp::PidAlgo& pid_algo, GetMillisFunc get_millis_func)
             : oven_(oven), pid_algo_(pid_algo), get_millis_func_(get_millis_func)
     { };
 
@@ -101,7 +101,7 @@ private:
     inline static constexpr uint16_t min_oven_temp = 50; // units = 0.1C
 
     OvenHardware& oven_;
-    Libp::PidAlgo& pid_algo_;
+    libp::PidAlgo& pid_algo_;
     const GetMillisFunc get_millis_func_;
 
     State state_ = State::stopped;

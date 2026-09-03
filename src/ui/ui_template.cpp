@@ -17,6 +17,7 @@
 #include <ui/ui_common.h>
 #include "lvgl/lvgl.h"
 #include "app_settings.h"
+#include "lp_types.h"
 
 static lv_obj_t* header_;
 static lv_obj_t* status_label_;
@@ -142,23 +143,26 @@ void setTftLed(uint8_t brightness) {
  */
 void statusHeaderUpdate(uint8_t power_level, uint16_t temp)
 {
-    static constexpr size_t max_len = sizeof("100%\n999.9°C");
+    static constexpr size_t max_len = sizeof("100%\n65535.9°C");
     // TODO: can we just update the static text?
     //       How to trigger label update? seems no public LV function.
     static char buf[max_len];
     TempUnit current_units = getSettings().units;
     temp = getSettings().unitsToCurrentUnits(temp, TempUnit::celsius);
     if (power_level == 0)
-        snprintf(buf, max_len, "Off\n%d.%d°%c",
-                (int)temp/10, (int)temp%10,
-                current_units == TempUnit::celsius ? 'C' : 'F');
+        snprintf(buf, max_len, "Off\n%u.%u°%c",
+                temp/10,
+                temp%10,
+                (current_units == TempUnit::celsius ? 'C' : 'F'));
     else
-        // Ignore truncation warning - temp is always <1000
-        snprintf(buf, max_len, "%d%%\n%d.%d°%c",
-                (int)power_level, (int)temp/10, (int)temp%10,
-                current_units == TempUnit::celsius ? 'C' : 'F');
+        snprintf(buf, max_len, "%u%%\n%u.%u°%c",
+                power_level,
+                temp/10,
+                temp%10,
+                (current_units == TempUnit::celsius ? 'C' : 'F'));
     lv_label_set_static_text(status_label_, buf);
 }
+
 
 
 /// Set the container for a specific page (i.e. container
@@ -166,7 +170,7 @@ void statusHeaderUpdate(uint8_t power_level, uint16_t temp)
 static void setPageContainer(Pages page, lv_obj_t* container)
 {
     // remove any previous page
-    uint8_t idx = Libp::enumBaseT(page);
+    uint8_t idx = libp::enumVal(page);
     if (gui_pages[idx].container != NULL)
         lv_obj_del(gui_pages[idx].container);
     gui_pages[idx].container = container;
@@ -191,7 +195,7 @@ void showPage(Pages new_page)
 {
     // static required for capture in lambda below
     static uint8_t new_page_idx;
-    new_page_idx = Libp::enumBaseT(new_page);
+    new_page_idx = libp::enumVal(new_page);
 
     // Update any dynamic content on the new page prior to showing
     if (gui_pages[new_page_idx].refresh_func)
@@ -218,7 +222,7 @@ void showPage(Pages new_page)
                 });
     }
     lv_label_set_static_text(page_name_label_, gui_pages[new_page_idx].title);
-    for (uint8_t i = 0; i < Libp::enumBaseT(Pages::LEN); i++) {
+    for (uint8_t i = 0; i < libp::enumVal(Pages::LEN); i++) {
         if (gui_pages[i].container != NULL)
             lv_obj_set_hidden(gui_pages[i].container, i != new_page_idx);
     }

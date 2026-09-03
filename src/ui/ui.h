@@ -2,11 +2,11 @@
 #define SRC_UI_UI_H_
 
 #include "oven/oven_operation.h"
-#include "pid/pid_algo.h"
+#include "pid/lp_pid_algo.h"
 #include "ui/ui_common.h"
 
 inline
-void buildUi(OvenOperation* oven_operation, Libp::PidAlgo* pid_algo)
+void buildUi(OvenOperation* oven_operation, libp::PidAlgo* pid_algo)
 {
     statusHeaderInit();
     pageMainmenuInit();

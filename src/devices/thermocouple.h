@@ -20,7 +20,7 @@ void initThermocouple();
  */
 int16_t readTemp();
 
-#include "drivers/max31856/max_31856.h"
+#include "drivers/max31856/lp_max_31856.h"
 
 void testMax();
 

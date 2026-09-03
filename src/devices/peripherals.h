@@ -2,9 +2,10 @@
 #define MYGPIO_H_
 
 #include <cstdint>
-#include "pins_stm32f1xx.h"
-#include "clock_stm32f1xx.h"
-#include "fsmc_stm32f1xx.h"
+
+#include "lp_clock_stm32f1xx.h"
+#include "lp_fsmc_stm32f1xx.h"
+#include "lp_pins_stm32f1xx.h"
 
 /*
  * STM32F103V[C/D/E]
@@ -94,18 +95,18 @@ inline constexpr uint8_t tft_led_pwm = 1;
 
 }
 
-namespace Pins {
+namespace pins {
 
-static inline LibpStm32::PinE<PinNb::pcb_led> pcb_led;
-static inline LibpStm32::PinA<PinNb::audio_en> audio_en;
+static inline libp_stm32::PinE<PinNb::pcb_led> pcb_led;
+static inline libp_stm32::PinA<PinNb::audio_en> audio_en;
 
-static inline LibpStm32::PinC<PinNb::max_spi_cs> max_spi_cs;
+static inline libp_stm32::PinC<PinNb::max_spi_cs> max_spi_cs;
 
 // TFT LCD (ex FSMC)
-static inline LibpStm32::PinD<PinNb::im0> tft_im0;
-static inline LibpStm32::PinD<PinNb::im1> tft_im1;
-static inline LibpStm32::PinD<PinNb::im2> tft_im2;
-static inline LibpStm32::PinC<PinNb::tft_reset> tft_reset;
+static inline libp_stm32::PinD<PinNb::im0> tft_im0;
+static inline libp_stm32::PinD<PinNb::im1> tft_im1;
+static inline libp_stm32::PinD<PinNb::im2> tft_im2;
+static inline libp_stm32::PinC<PinNb::tft_reset> tft_reset;
 
 }
 
@@ -113,22 +114,22 @@ namespace Details {
 inline __attribute__((always_inline))
 void initGpio()
 {
-    using namespace LibpStm32;
+    using namespace libp_stm32;
 
-    Clk::enable<
-            Clk::Apb2::iopa,
-            Clk::Apb2::iopb,
-            Clk::Apb2::iopc,
-            Clk::Apb2::iopd,
-            Clk::Apb2::iope>();
+    clk::enable<
+            clk::Apb2::iopa,
+            clk::Apb2::iopb,
+            clk::Apb2::iopc,
+            clk::Apb2::iopd,
+            clk::Apb2::iope>();
 
-    Pins::pcb_led.clear();
-    Pins::audio_en.clear();
-    Pins::max_spi_cs.clear();
-    Pins::tft_im0.clear();
-    Pins::tft_im1.clear();
-    Pins::tft_im2.clear();
-    Pins::tft_reset.clear();
+    pins::pcb_led.clear();
+    pins::audio_en.clear();
+    pins::max_spi_cs.clear();
+    pins::tft_im0.clear();
+    pins::tft_im1.clear();
+    pins::tft_im2.clear();
+    pins::tft_reset.clear();
 
     GpioA::setOutputs<OutputMode::pushpull, OutputSpeed::low,
             PinNb::audio_en >();
@@ -162,29 +163,29 @@ void initGpio()
 
     // USART
 
-    DefPin::usart1_tx.setAsOutput(OutputMode::alt_pushpull, OutputSpeed::low);
-    DefPin::usart1_rx.setAsInput(LibpStm32::InputMode::floating);
+    def_pin::usart1_tx.setAsOutput(OutputMode::alt_pushpull, OutputSpeed::low);
+    def_pin::usart1_rx.setAsInput(libp_stm32::InputMode::floating);
 }
 
 inline __attribute__((always_inline))
 void initFsmcSram()
 {
-    constexpr LibpStm32::Fsmc::SramNorCfg cfg = []() {
-        LibpStm32::Fsmc::Config config;
+    constexpr libp_stm32::fsmc::SramNorCfg cfg = []() {
+        libp_stm32::fsmc::Config config;
 
         config.timing.addr_setup = 5;
         config.timing.addr_hold = 2;
         config.timing.data_phase_dur = 3;
 
         config.addr_data_mux = false;
-        config.mem_type = LibpStm32::Fsmc::Config::MemType::sram;
+        config.mem_type = libp_stm32::fsmc::Config::MemType::sram;
         config.flash_access_en = false;
 
         return config.makeConfig();
     }();
-    LibpStm32::Clk::enable<LibpStm32::Clk::Ahb::fsmc>();
-    LibpStm32::Fsmc::NorSram<1>::init(cfg);
-    LibpStm32::Fsmc::nadvDisconnected(); // don't use NADV output
+    libp_stm32::clk::enable<libp_stm32::clk::Ahb::fsmc>();
+    libp_stm32::fsmc::NorSram<1>::init(cfg);
+    libp_stm32::fsmc::nadvDisconnected(); // don't use NADV output
 }
 } // namespace Details
 

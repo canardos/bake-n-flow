@@ -1,10 +1,11 @@
 #include <cstdint>
-#include "clock_stm32f1xx.h"
-#include "timer_stm32f1xx.h"
-#include "pins_stm32f1xx.h"
 #include "devices/peripherals.h"
 
-using namespace LibpStm32;
+#include "lp_clock_stm32f1xx.h"
+#include "lp_pins_stm32f1xx.h"
+#include "lp_timer_stm32f1xx.h"
+
+using namespace libp_stm32;
 
 static constexpr uint32_t mcu_freq = 72'000'000; // TODO: get dynamically
 static constexpr uint8_t mains_freq = 60;
@@ -17,19 +18,19 @@ static constexpr uint32_t tim_resolution = mcu_freq / crossing_freq;
 static constexpr uint32_t tim_period  = tim_resolution * power_steps;
 
 
-static const Tim::Channel tim_channel = Tim::Channel::ch1;
-static Tim::BasicTimer<TIM4_BASE> timer_;
+static const tmr::Channel tim_channel = tmr::Channel::ch1;
+static tmr::BasicTimer<TIM4_BASE> timer_;
 
 void initOvenSsr()
 {
     // Timer 4, channel 1 = PB6 (no remap)
-    Clk::enable<Clk::Apb2::iopb>();
+    clk::enable<clk::Apb2::iopb>();
     GpioB::setOutputs<
             OutputMode::alt_pushpull,
             OutputSpeed::low,
             PinNb::ssr_pwm >();
 
-    Clk::enable<Clk::Apb1::tim4>();
+    clk::enable<clk::Apb1::tim4>();
 
     timer_.initPwm(
             tim_channel,

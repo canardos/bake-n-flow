@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "audio/dac_audio.h"
+#include "audio/lp_dac_audio.h"
 
 // data/sounds/effects/wav/KeypressSpacebar_49.wav
 
@@ -301,8 +301,8 @@ inline constexpr unsigned char audio_keypress[] = {
 };
 inline constexpr unsigned int audio_keypress_len = 3307;
 
-inline constexpr Libp::AudioSample audiosample_keypress = {
-        Libp::AudioResolution::bits8,
+inline constexpr libp::AudioSample audiosample_keypress = {
+        libp::AudioResolution::bits8,
         44100,
         audio_keypress,
         audio_keypress_len

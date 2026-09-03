@@ -1,11 +1,12 @@
 #include <cstdint>
 #include <tuple>
-#include "clock_stm32f1xx.h"
-#include "timer_stm32f1xx.h"
-#include "pins_stm32f1xx.h"
 #include "devices/peripherals.h"
 
-using namespace LibpStm32;
+#include "lp_clock_stm32f1xx.h"
+#include "lp_pins_stm32f1xx.h"
+#include "lp_timer_stm32f1xx.h"
+
+using namespace libp_stm32;
 
 constexpr uint32_t mcu_freq = 72'000'000;
 
@@ -21,18 +22,18 @@ constexpr uint32_t cycles_per_deg = us_for_full_arc / (double)n_degrees * mcu_fr
 constexpr uint32_t cycles_for_0_deg = us_for_0_deg / 1'000'000.0 * mcu_freq;
 constexpr uint32_t cycles_per_period = us_period / 1'000'000.0 * mcu_freq;
 
-static const Tim::Channel tim_channel = Tim::Channel::ch1;
-static Tim::BasicTimer<TIM5_BASE> timer_;
+static const tmr::Channel tim_channel = tmr::Channel::ch1;
+static tmr::BasicTimer<TIM5_BASE> timer_;
 
 void initDoorServo()
 {
     // Timer 5, channel 1 = PA0 (no remap)
-    Clk::enable<Clk::Apb2::iopa>();
+    clk::enable<clk::Apb2::iopa>();
     GpioA::setOutputs<
             OutputMode::alt_pushpull,
             OutputSpeed::low,
             PinNb::door_servo_pwm>();
-    Clk::enable<Clk::Apb1::tim5>();
+    clk::enable<clk::Apb1::tim5>();
 
     timer_.initPwm(
             tim_channel,

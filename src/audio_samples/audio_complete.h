@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "audio/dac_audio.h"
+#include "audio/lp_dac_audio.h"
 
 // osmium.ogg
 
@@ -7018,8 +7018,8 @@ inline constexpr unsigned char audio_complete2[] = {
 };
 inline constexpr unsigned int audio_complete_len = 52970;
 
-const Libp::AudioSample audiosample_complete = {
-        Libp::AudioResolution::bits8,
+const libp::AudioSample audiosample_complete = {
+        libp::AudioResolution::bits8,
         44100,
         audio_complete,
         audio_complete_len

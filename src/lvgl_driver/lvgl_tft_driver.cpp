@@ -1,11 +1,11 @@
-#include <graphics/idrawing_surface.h>
 #include <cstdint>
+#include <graphics/lp_idrawing_surface.h>
 #include "lvgl/lvgl.h"
 
 extern "C"
 void lvgl_tftdriver_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p)
 {
-    Libp::IDrawingSurface<uint16_t>* tft = static_cast<Libp::IDrawingSurface<uint16_t>*>(disp_drv->user_data);
+    libp::IDrawingSurface<uint16_t>* tft = static_cast<libp::IDrawingSurface<uint16_t>*>(disp_drv->user_data);
     tft->copyRect(
             static_cast<int16_t>(area->x1), static_cast<int16_t>(area->y1),
             static_cast<int16_t>(area->x2 - area->x1 + 1), static_cast<int16_t>(area->y2 - area->y1 + 1),
@@ -20,7 +20,7 @@ void lvgl_tftdriver_flush_dma(lv_disp_drv_t * disp_drv, const lv_area_t * area, 
 {
     driver = disp_drv;
 
-    Libp::IDrawingSurface<uint16_t>* tft = static_cast<Libp::IDrawingSurface<uint16_t>*>(disp_drv->user_data);
+    libp::IDrawingSurface<uint16_t>* tft = static_cast<libp::IDrawingSurface<uint16_t>*>(disp_drv->user_data);
     tft->copyRect(
             static_cast<int16_t>(area->x1), static_cast<int16_t>(area->y1),
             static_cast<int16_t>(area->x2 - area->x1 + 1), static_cast<int16_t>(area->y2 - area->y1 + 1),
