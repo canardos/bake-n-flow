@@ -31,8 +31,8 @@ void ReflowProfiles::deleteProfile(uint8_t idx)
         return;
     if (idx < (num_profiles_ - 1)) {
         size_t len = (num_profiles_ - idx - 1) * sizeof(Profile);
-        memcpy( static_cast<void*>(&profiles_[idx]),
-                static_cast<void*>(&profiles_[idx + 1]), len);
+        memmove( &profiles_[idx],
+                 &profiles_[idx + 1], len);
     }
     num_profiles_--;
 }
