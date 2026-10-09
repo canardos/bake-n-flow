@@ -24,3 +24,5 @@ travis.yml
 *-bak
 *-backups
 *-cache
+*.kicad_pcb-bak
+*.kicad_sch-bak

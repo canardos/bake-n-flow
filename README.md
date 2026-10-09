@@ -16,7 +16,7 @@
 
 **This repo contains the firmware and PCB design.**
 
-**See [custom electronics projects at duk.io](https://www.duk.io/blog/electronics-projects/) for full project details.**
+**See [custom electronics projects at duk.io](https://www.ducktoast.com/blog/electronics-projects/) for full project details.**
 
 https://github.com/canardos/bake-n-flow/assets/14832310/401d4c1e-f360-4829-90d8-4b5ea61bf341
 
@@ -44,10 +44,10 @@ CONFIGURATION: https://docs.platformio.org/page/boards/ststm32/genericSTM32F103V
 PLATFORM: ST STM32 (19.7.0) > STM32F103VD (64k RAM. 384k Flash)
 HARDWARE: STM32F103VDT6 72MHz, 64KB RAM, 384KB Flash
 DEBUG: Current (stlink) External (blackmagic, cmsis-dap, jlink, stlink)
-PACKAGES: 
- - framework-cmsis @ 2.50501.200527 (5.5.1) 
- - framework-cmsis-stm32f1 @ 4.3.5 
- - tool-ldscripts-ststm32 @ 0.2.0 
+PACKAGES:
+ - framework-cmsis @ 2.50501.200527 (5.5.1)
+ - framework-cmsis-stm32f1 @ 4.3.5
+ - tool-ldscripts-ststm32 @ 0.2.0
  - toolchain-gccarmnoneeabi @ 1.120301.0 (12.3.1)
 LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
 LDF Modes: Finder ~ chain, Compatibility ~ soft
