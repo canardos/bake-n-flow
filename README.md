@@ -16,13 +16,13 @@
 
 **This repo contains the firmware and PCB design.**
 
-**See [custom electronics projects at duk.io](https://www.ducktoast.com/blog/electronics-projects/) for full project details.**
+**See [custom electronics projects at DuckToast.com](https://www.ducktoast.com/blog/electronics-projects/) for full project details.**
 
 https://github.com/canardos/bake-n-flow/assets/14832310/401d4c1e-f360-4829-90d8-4b5ea61bf341
 
 ## Build
 
-The project uses the [PlatformIO](https://platformio.org/) dependency management/build system. If you have PlatformIO installed, executing the `run` command in the root folder *should* 🙏 be all that is required for a successful build. The `platformio.ini` file contains the required configuration and PlatformIO will download the required platform dependencies and toolchain.
+The project uses the [PlatformIO](https://platformio.org/) dependency management/build system. If you have PlatformIO installed, executing the `run` command in the root folder *should* 🙏 be all that is required for a successful build. The `platformio.ini` file contains the required configuration and PlatformIO will download the required dependencies and toolchain.
 
 **1. Clone repo and download submodules**
 
@@ -165,7 +165,7 @@ PlatformIO should automatically include/link the correct headers/sources from th
 
 The PCB was designed with KiCad v.5, but the files have been upgraded to v.7 and are located in `/hardware/pcb`. Gerber output for the first and only revision is located in `/hardware/pcb/plots`.
 
-See the [KiCad documentation](https://docs.kicad.org/) for information on installing and using KiCad.
+**The design contains minor errors** that should be fixed if it is (re)produced. See the [blog post here](https://www.ducktoast.com/blog/electronics-projects/reflow-oven/building-a-toaster-reflow-oven-part-3-manufacturing/#pcb-errors-and-things-i-would-have-done-differently) for details.
 
 ## Folder structure
 
